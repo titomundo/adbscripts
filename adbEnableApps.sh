@@ -19,6 +19,12 @@ declare -a arr=(
     "com.google.android.apps.nbu.files"
     "com.motorola.help"
     "com.android.wallpaper.livepicker"
+    "com.motorola.demo"
+    "com.motorola.timeweatherwidget"
+    "com.motorola.securevault"
+    "com.google.android.as"
+    "com.google.android.projection.gearhead"
+    "com.google.android.safetycore"
 )
 
 for i in "${arr[@]}"
