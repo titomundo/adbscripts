@@ -17,6 +17,7 @@ declare -a arr=(
     "com.motorola.ccc.notification"
     "com.motorola.securityhub"
     "com.google.android.apps.nbu.files"
+    "com.motorola.help"
 )
 
 for i in "${arr[@]}"
