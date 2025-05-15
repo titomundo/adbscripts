@@ -1,5 +1,5 @@
 #!/bin/bash
-#
+
 declare -a arr=(
     "com.google.android.youtube"
     "com.google.android.apps.youtube.music"
@@ -13,7 +13,7 @@ declare -a arr=(
     "com.google.android.videos"
     "com.motorola.gamemode"
     "com.google.android.apps.googleassistant"
-#    "com.android.vending"
+    "com.android.vending"
     "com.motorola.ccc.notification"
     "com.motorola.securityhub"
     "com.google.android.apps.nbu.files"
@@ -25,10 +25,17 @@ declare -a arr=(
     "com.google.android.as"
     "com.google.android.projection.gearhead"
     "com.google.android.safetycore"
+    "com.blackout.word"
+    "com.LoopGames.Domino"
+    "com.soulcompany.bubbleshooter.relaxing"
+    "com.einnovation.temu"
+    "com.zhiliaoapp.musically"
+    "com.block.juggle"
+    "com.dti.motorola"
 )
 
 for i in "${arr[@]}"
 do
-    #echo "$i"
-    adb shell pm disable-user --user 0 "$i" 
+    echo "Uninstalling: "$i""
+    adb shell pm uninstall -k --user 0 "$i"
 done
