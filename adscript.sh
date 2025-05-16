@@ -34,31 +34,119 @@ declare -a arr=(
     "com.dti.motorola"
 )
 
-uninstall_apps() {
+print_menu() {
+    echo 
+    echo "[1] Enable apps"
+    echo "[2] Disable apps"
+    echo "[3] Install apps"
+    echo "[4] Uninstall apps"
+    echo "[5] Exit"
+    echo
+}
+
+print_apps() {
     for i in "${arr[@]}"
     do
-        echo "Uninstalling: "$i""
-        adb shell pm uninstall -k --user 0 "$i"
+        echo "$i"
     done
 }
 
 enable_apps() {
-    for i in "${arr[@]}"
-    do
-        adb shell pm enable "$i"
-    done
+    echo "This will ENABLE the following apps: "
+    print_apps 
+    echo  "Do you want to continue? (y, n)"
+
+    in=""
+    read in 
+
+    if [ "$in" = "y" ]
+    then
+        for i in "${arr[@]}"
+        do
+            adb shell pm enable "$i"
+        done
+    fi
 }
 
 disable_apps() {
-    for i in "${arr[@]}"
-    do
-        adb shell pm disable-user --user 0 "$i" 
-    done
+    echo "This will DISABLE the following apps: "
+    print_apps 
+    echo  "Do you want to continue? (y, n)"
+
+    in=""
+    read in 
+
+    if [ "$in" = "y" ]
+    then
+        for i in "${arr[@]}"
+        do
+            adb shell pm disable-user --user 0 "$i" 
+        done
+    fi
 }
 
+install_apps() {
+    echo "This will INSTALL the following apps: "
+    print_apps 
+    echo  "Do you want to continue? (y, n)"
+
+    in=""
+    read in 
+
+    if [ "$in" = "y" ]
+    then
+        for i in "${arr[@]}"
+        do
+            echo "Uninstalling: "$i""
+            adb shell pm install-existing "$i"
+        done
+    fi
+}
+
+uninstall_apps() {
+    echo "This will UNINSTALL the following apps: "
+    print_apps 
+    echo  "Do you want to continue? (y, n)"
+
+    in=""
+    read in 
+
+    if [ "$in" = "y" ]
+    then
+        for i in "${arr[@]}"
+        do
+            echo "Uninstalling: "$i""
+            adb shell pm uninstall -k --user 0 "$i"
+        done
+    fi
+}
+
+echo "-> ADB SCRIPT TOOL"
 user_input=""
-while ["$user_input" != "exit"]
+
+while : 
 do
-    echo "select an option"
+    print_menu
     read user_input
+    case $user_input in 
+        1)
+            enable_apps
+            ;;
+        2)
+            disable_apps
+            ;;
+        3)
+            install_apps
+            ;;
+        4) 
+            uninstall_apps
+            ;;
+        5)
+            echo "bye"
+            break
+            ;;
+        *)
+            echo "select another option"
+            ;;
+    esac
 done
