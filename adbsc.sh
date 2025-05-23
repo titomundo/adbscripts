@@ -13,7 +13,7 @@ declare -a arr=(
     "com.google.android.videos"
     "com.motorola.gamemode"
     "com.google.android.apps.googleassistant"
-#   "com.android.vending"
+#   "com.android.vending" //// PLAYSTORE 
     "com.motorola.ccc.notification"
     "com.motorola.securityhub"
     "com.google.android.apps.nbu.files"
@@ -32,6 +32,11 @@ declare -a arr=(
     "com.zhiliaoapp.musically"
     "com.block.juggle"
     "com.dti.motorola"
+    "com.facebook.katana"
+    "com.google.android.apps.restore"
+    "com.google.android.as.oss"
+    "com.google.android.partnersetup"
+    "com.taboola.ody"
 )
 
 print_menu() {
@@ -53,11 +58,11 @@ print_apps() {
 
 enable_apps() {
     echo "This will ENABLE the following apps: "
-    print_apps 
+    print_apps
     echo  "Do you want to continue? (y, n)"
 
     in=""
-    read in 
+    read in
 
     if [ "$in" = "y" ]
     then
@@ -70,34 +75,34 @@ enable_apps() {
 
 disable_apps() {
     echo "This will DISABLE the following apps: "
-    print_apps 
+    print_apps
     echo  "Do you want to continue? (y, n)"
 
     in=""
-    read in 
+    read in
 
     if [ "$in" = "y" ]
     then
         for i in "${arr[@]}"
         do
-            adb shell pm disable-user --user 0 "$i" 
+            adb shell pm disable-user --user 0 "$i"
         done
     fi
 }
 
 install_apps() {
     echo "This will INSTALL the following apps: "
-    print_apps 
+    print_apps
     echo  "Do you want to continue? (y, n)"
 
     in=""
-    read in 
+    read in
 
     if [ "$in" = "y" ]
     then
         for i in "${arr[@]}"
         do
-            echo "Uninstalling: "$i""
+            echo "Installing: "$i""
             adb shell pm install-existing "$i"
         done
     fi
@@ -105,11 +110,11 @@ install_apps() {
 
 uninstall_apps() {
     echo "This will UNINSTALL the following apps: "
-    print_apps 
+    print_apps
     echo  "Do you want to continue? (y, n)"
 
     in=""
-    read in 
+    read in
 
     if [ "$in" = "y" ]
     then
@@ -124,11 +129,11 @@ uninstall_apps() {
 echo "-> ADB SCRIPT TOOL"
 user_input=""
 
-while : 
+while :
 do
     print_menu
     read user_input
-    case $user_input in 
+    case $user_input in
         1)
             enable_apps
             ;;
